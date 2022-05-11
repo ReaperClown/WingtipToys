@@ -1,7 +1,21 @@
 ﻿/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
+    height: 100vh;
+}
+
+.container {
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.content {
+    padding: 30px;
+}
+
+.qtdInput {
+    padding: 10px;
 }
 
 /* Wrapping element */
@@ -9,6 +23,10 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.category-link {
+    text-decoration: none;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -32,6 +50,7 @@ input[type="select"] {
     .jumbotron {
         margin-top: 20px;
     }
+
     .body-content {
         padding: 0;
     }

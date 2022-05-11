@@ -4,7 +4,7 @@
 
 <html lang="pt">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - WingTip - Toys</title>
@@ -12,7 +12,7 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -38,44 +38,67 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" runat="server" href="~/">WingTipToys</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Página inicial</a></li>
-                        <li><a runat="server" href="~/About">Sobre</a></li>
-                        <li><a runat="server" href="~/Contact">Contato</a></li>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="~/">WingTipToys</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/">Página inicial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/About">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/Contact">Contato</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/ProductList">Produtos</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/ShoppingCart" id="cartCount">&nbsp;</a>
+                        </li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Registrar</a></li>
-                                <li><a runat="server" href="~/Account/Login">Logon</a></li>
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item"><a class="nav-link" runat="server" href="~/Account/Register">Registrar</a></li>
+                                <li class="nav-item"><a class="nav-link" runat="server" href="~/Account/Login">Logon</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Olá, <%: Context.User.Identity.GetUserName()  %> !</a></li>
-                                <li>
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item"><a class="nav-link" runat="server" href="~/Account/Manage" title="Manage your account">Olá, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li class="nav-item">
                                     <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                 </li>
                             </ul>
                         </LoggedInTemplate>
                     </asp:LoginView>
-                    <div id="TitleContent" style="text-align: center">
-                        <a runat="server" href="~/">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="/Images/logo.jpg" BorderStyle="None" />
-                        </a>
-                    </div>
                 </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div id="TitleContent" style="text-align: center">
+                <a runat="server" href="~/">
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logo.jpg" BorderStyle="None" />
+                </a>
+                <br />
+            </div>
+            <div id="CategoryMenu" style="text-align: center">
+                <asp:ListView ID="categoryList" ItemType="WingtipToys.Models.Category" runat="server" SelectMethod="GetCategories">
+                    <ItemTemplate>
+                        <b style="font-size: large; font-style: normal">
+                            <a class="category-link" href="/ProductList.aspx?id=<%#: Item.CategoryID %>">
+                                <%#: Item.CategoryName %>
+                            </a>
+                            |
+                        </b>
+                    </ItemTemplate>
+                </asp:ListView>
             </div>
         </div>
         <div class="container body-content">
